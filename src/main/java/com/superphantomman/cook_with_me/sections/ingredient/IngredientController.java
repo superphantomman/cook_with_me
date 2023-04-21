@@ -1,4 +1,6 @@
 package com.superphantomman.cook_with_me.sections.ingredient;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,10 +10,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/ingredients")
-public class IngredientController {
+
+
+@AllArgsConstructor
+final public class IngredientController {
+
+    private IngredientService ingredientService;
+
+
     @GetMapping
     public ModelAndView ingredients(){
         final var mav = new ModelAndView("/ingredient/ingredients");
+        mav.addObject("ingredients", ingredientService.ingredients());
         return mav;
     }
 

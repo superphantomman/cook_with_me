@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+<ul>
+    <li th:each="ingredient : ${ingredients}">
+        <span th:text="${ingredient.getName()}"></span>
+    </li>
+</ul>
 
 </body>
 </html>
