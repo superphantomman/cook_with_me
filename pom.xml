@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>2.7.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.superphantomman</groupId>
-    <artifactId>cook_with_me</artifactId>
+    <groupId>com.jabbascript</groupId>
+    <artifactId>cookwithme</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cook_with_me</name>
-    <description>Demo project for Spring Boot</description>
+    <name>cookwithme</name>
+    <description>Application for getting knowledge in cooking field</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -52,13 +52,33 @@
             <version>2.7.5</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--            <version>2.7.5</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>2.7.5</version>
+        </dependency>
 
-
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version> <!-- or the latest version -->
+            <scope>test</scope>
+        </dependency>
+        <!-- Mockito -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.12.4</version> <!-- or the latest version -->
+            <scope>test</scope>
+        </dependency>
+        <!-- Spring Testing -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.13</version> <!-- or the version compatible with your Spring version -->
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

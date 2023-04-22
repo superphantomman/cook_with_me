@@ -31,6 +31,9 @@ public class RecipeInformationConfirmed extends RecipeInformation {
         super(name, creationDate);
     }
 
+    public RecipeInformationConfirmed(RecipeInformation ri){
+        this(ri.getName(), ri.getCreationDate());
+    }
     @Transient
     @Override
     public State state() {

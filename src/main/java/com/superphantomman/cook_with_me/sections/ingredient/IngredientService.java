@@ -2,22 +2,23 @@ package com.superphantomman.cook_with_me.sections.ingredient;
 
 
 import com.superphantomman.cook_with_me.sections.ingredient.pojos.Ingredient;
+import com.superphantomman.cook_with_me.util.AbstractDaoService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+//TODO test it
 @Service
-final public class IngredientService {
-
-    private IngredientRepository repository;
-
-
-    public List<Ingredient> ingredients(){
-
-        return repository.findAll();
+final public class IngredientService extends AbstractDaoService<Ingredient>  {
+    public IngredientService(IngredientRepository repository) {
+        super(repository);
     }
+
+    @Override
+    public List<? extends Ingredient> getAll(String search) {
+        return getAll().stream().filter(( i ) -> i.getName().contains(search)).toList();
+    }
+
 }

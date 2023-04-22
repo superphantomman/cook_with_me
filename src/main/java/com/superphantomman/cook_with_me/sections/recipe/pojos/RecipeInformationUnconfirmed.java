@@ -35,6 +35,9 @@ public class RecipeInformationUnconfirmed extends RecipeInformation {
     public RecipeInformationUnconfirmed(String name, LocalDate creationDate) {
         super(name, creationDate);
     }
+    public RecipeInformationUnconfirmed(RecipeInformation ri){
+        this(ri.getName(), ri.getCreationDate());
+    }
 
 
 }

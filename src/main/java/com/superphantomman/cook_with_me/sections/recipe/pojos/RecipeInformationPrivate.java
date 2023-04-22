@@ -32,6 +32,10 @@ public class RecipeInformationPrivate extends RecipeInformation {
     public RecipeInformationPrivate(String name, LocalDate creationDate) {
         super(name, creationDate);
     }
+    public RecipeInformationPrivate(RecipeInformation ri){
+        this(ri.getName(), ri.getCreationDate());
+    }
+
 
 
 
