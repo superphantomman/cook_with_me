@@ -2,6 +2,7 @@ package com.superphantomman.cook_with_me.sections.recipe;
 
 
 import com.superphantomman.cook_with_me.exceptions.NotFoundEntityException;
+import com.superphantomman.cook_with_me.exceptions.NotPersistedEntityException;
 import com.superphantomman.cook_with_me.sections.recipe.pojos.Recipe;
 import com.superphantomman.cook_with_me.sections.recipe.pojos.RecipeInformation;
 import com.superphantomman.cook_with_me.sections.recipe.pojos.RecipeInformationPrivate;
@@ -24,19 +25,26 @@ public class RecipeController {
 
     @GetMapping
     public ModelAndView recipes() {
+
         final var mav = new ModelAndView("/recipe/recipes");
         mav.addObject("recipes", recipeService.getAll() );
         log.info("GET request received on path /recipes");
+
         return mav;
     }
 
-
     //If user search for exact recipe by name
     @PostMapping
-    public ModelAndView recipes(@RequestParam("search") String search) {
+    public ModelAndView recipes(@RequestParam(value = "search", defaultValue = "") String search) {
+
         final var mav = new ModelAndView("/recipe/recipes");
-        mav.addObject("recipes", recipeService.getAll(search));
+        if(!search.equals(""))
+            mav.addObject("recipes", recipeService.getAll(search));
+                else
+            mav.addObject("recipes", recipeService.getAll());
+
         log.info("POST request received on path /recipes?search=" + search);
+
         return mav;
     }
 
@@ -61,8 +69,8 @@ public class RecipeController {
             recipeInformation =  new RecipeInformationUnconfirmed(ri) ;
         }
 
-        if(recipeService.add(r, recipeInformation )){
-
+        if(!recipeService.add(r, recipeInformation )){
+            throw new NotPersistedEntityException();
         }
 
         attributes.addAttribute("recipeInformation", ri);
@@ -73,24 +81,28 @@ public class RecipeController {
 
     @GetMapping("/create/success")
     public ModelAndView successRecipe( @RequestParam("recipe") Long recipeId ) {
+
         final var mav = new ModelAndView("/success/success");
         mav.addObject("recipe", recipeService.get(recipeId));
         log.info("POST request received on path recipes/create/success?recipeId=" + recipeId);
+
         return mav;
     }
 
     @GetMapping("/details/{id}")
     public ModelAndView detailsRecipe(@PathVariable("id") Long id) {
+
         final Recipe recipe = recipeService.get(id);
+        System.out.println(recipe);
 
         if( recipe == null) {
-            log.error("Not founded recipe with id = " + id + " recipes/details/");
-            throw new NotFoundEntityException("Not founded recipe with id = " + id);
+            throw new NotFoundEntityException("Not founded recipe with id = " + id + " recipes/details/");
         }
 
         final var mav = new ModelAndView("recipe/details");
         mav.addObject("recipe", recipeService.get(id));
         log.info("POST request received on path /recipes/details/"+id);
+
         return mav;
     }
 

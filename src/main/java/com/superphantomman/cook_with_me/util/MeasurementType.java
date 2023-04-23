@@ -1,7 +1,6 @@
 package com.superphantomman.cook_with_me.util;
 
 
-//TODO resolve problem with float
 public enum MeasurementType {
     GRAM(
             "GRAM", 1,

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//TODO test it
 
 @Slf4j
 @Service
@@ -23,7 +22,6 @@ final public class IngredientService extends AbstractDaoService<Ingredient>  {
 
         for (final Ingredient i : getAll(e.getName())){
             if (e.getName().equals(i.getName())) {
-                log.error("Ingredient with this name is already present in database");
                 throw new NotPersistedEntityException("Ingredient with this name is already present in database");
             }        }
         return super.add(e);

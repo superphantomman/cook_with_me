@@ -4,7 +4,6 @@ public class DecimalValue {
     private int unit;
     private int scale;
     private int rest;
-    //TODO add exception
     DecimalValue(String value){
         String[] va = value.split("\\.");
         int unit = Integer.parseInt(va[0]);

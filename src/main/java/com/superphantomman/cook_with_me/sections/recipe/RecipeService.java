@@ -27,9 +27,11 @@ public class RecipeService extends AbstractDaoService<Recipe> {
     }
 
     public boolean add(Recipe r, RecipeInformation ri){
+
         ri.setRecipe(r);
         repository.save(r);
         informationRepository.save(ri);
+
         return contains(r);
     }
 

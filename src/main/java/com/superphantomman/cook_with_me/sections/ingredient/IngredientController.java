@@ -18,25 +18,31 @@ final public class IngredientController {
 
     @GetMapping
     public ModelAndView ingredients(){
+
         final var mav = new ModelAndView("/ingredient/ingredients");
         mav.addObject("ingredients", ingredientService.getAll());
         log.info("GET request received on path /ingredients");
+
         return mav;
     }
 
     @PostMapping
     public ModelAndView ingredients(@RequestParam("search") String search){
+
         final var mav = new ModelAndView("/ingredient/ingredients");
         mav.addObject("ingredients", ingredientService.getAll(search));
         log.info("POST request received on path /ingredients?search=" + search);
+
         return mav;
     }
 
     @GetMapping("/create")
     public ModelAndView createIngredient(){
+
         final var mav = new ModelAndView("/ingredient/ingredients");
         mav.addObject("ingredient", new IngredientUnconfirmed());
         log.info("GET request received on path /ingredients/create");
+
         return mav;
     }
 
@@ -44,12 +50,12 @@ final public class IngredientController {
     public ModelAndView createIngredient( @ModelAttribute Ingredient ingredient ){
 
         if ( ingredientService.add(ingredient) ) {
-            log.error("Not persisted ingredient object from /ingredient/create");
-            throw new NotFoundEntityException("Not persisted ingredient object");
+            throw new NotFoundEntityException("Not persisted ingredient object from /ingredient/create");
         }
 
         final var mav = new ModelAndView("/ingredient/ingredients");
         log.info("POST request received on path /ingredients/create");
+
         return mav;
     }
     @GetMapping("/details/{id}")
@@ -57,12 +63,13 @@ final public class IngredientController {
         final Ingredient ingredient = ingredientService.get(id);
 
         if( ingredient == null ){
-            log.error("Not founded ingredient with id = " + id + " recipes/details/");
-            throw new NotFoundEntityException("Not founded ingredient with id = " + id);
+
+            throw new NotFoundEntityException("Not founded ingredient with id = " + id + " recipes/details/");
         }
 
         final var mav = new ModelAndView("ingredient/details");
         mav.addObject("ingredient", ingredient);
+
         return mav;
     }
 
