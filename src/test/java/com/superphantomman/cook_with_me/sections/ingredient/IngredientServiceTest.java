@@ -3,58 +3,122 @@ package com.superphantomman.cook_with_me.sections.ingredient;
 
 import com.superphantomman.cook_with_me.sections.ingredient.pojos.Ingredient;
 import com.superphantomman.cook_with_me.sections.ingredient.pojos.IngredientConfirmed;
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.IngredientUnconfirmed;
 import com.superphantomman.cook_with_me.util.DaoService;
+import com.superphantomman.cook_with_me.util.MeasurementType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
-import static com.superphantomman.cook_with_me.util.MeasurementType.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @Transactional
 @SpringBootTest
 public class IngredientServiceTest {
+
+
     @Autowired
     DaoService<Ingredient> ingredientDaoService;
 
     @Autowired
-    public IngredientServiceTest(DaoService<Ingredient> ingredientDaoService) {
-        this.ingredientDaoService = ingredientDaoService;
-    }
+    private IngredientService ingredientService;
 
-    private List<Ingredient> ingredients = List.of(
-            new IngredientConfirmed("watermelon", 10, GRAM), new IngredientConfirmed("orange", 20, GRAM),
-            new IngredientUnconfirmed("beef", 20, DECAGRAM), new IngredientConfirmed("milk", 1, LITER)
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
-    );
     @Test
-    void contextLoads() {
-        ingredientDaoService.addAll(ingredients);
-    }
-    @Test
-    void contextClear(){ingredientDaoService.clear();
-    }
-    @Test
-    void testRetrieve() {
-        for (var e : ingredientDaoService.getAll()){
-            System.out.println(e.getName());
-        }
+    public void testAdd() {
+        Ingredient ingredient = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        boolean added = ingredientService.add(ingredient);
 
-
-//        assert ingredients.stream().allMatch( i -> ingredientDaoService.contains(i));
-//        assert !ingredientDaoService.contains(new IngredientConfirmed("wrong", -1, GRAM));
-//        assert  ingredientDaoService.get(1L).getName().equals( ingredients.get(1).getName() );
-//        assert ingredientDaoService.get(100L) == null;
+        assertTrue(added);
+        assertNotNull(ingredient.getId());
+        assertEquals(ingredient, ingredientRepository.findById(ingredient.getId()).orElse(null));
+        ingredientService.clear();
     }
 
 
+    @Test
+    public void testGetAll() {
+        Ingredient ingredient1 = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        Ingredient ingredient2 = new IngredientConfirmed("Pepper", 0, MeasurementType.GRAM);
+
+        ingredientService.add(ingredient1);
+        ingredientService.add(ingredient2);
+
+        List<? extends Ingredient> ingredients = ingredientService.getAll("");
+        assertEquals(2, ingredients.size());
+        assertTrue(ingredients.contains(ingredient1));
+        assertTrue(ingredients.contains(ingredient2));
+        ingredientService.clear();
+
+    }
 
     @Test
-    void testModifying(){
+    public void testGetAllSorted() {
+
+        Ingredient ingredient1 = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        Ingredient ingredient2 = new IngredientConfirmed("Pepper", 0, MeasurementType.GRAM);
+        ingredientService.add(ingredient1);
+        ingredientService.add(ingredient2);
+
+        List<? extends Ingredient> ingredients = ingredientService.getAllSorted(Comparator.comparing(Ingredient::getName));
+        assertEquals(2, ingredients.size());
+        assertEquals(ingredient2, ingredients.get(0));
+        assertEquals(ingredient1, ingredients.get(1));
+        ingredientService.clear();
+
+    }
+
+    @Test
+    public void testRemove() {
+        Ingredient ingredient = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        ingredientService.add(ingredient);
+        boolean removed = ingredientService.remove(ingredient);
+
+        assertTrue(removed);
+        assertNull(ingredientRepository.findById(ingredient.getId()).orElse(null));
+        ingredientService.clear();
+
+    }
+
+    @Test
+    public void testGet() {
+        Ingredient ingredient = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        ingredientService.add(ingredient);
+
+        Ingredient retrievedIngredient = ingredientService.get(ingredient.getId());
+        assertNotNull(retrievedIngredient);
+        assertEquals(ingredient, retrievedIngredient);
+        ingredientService.clear();
+
+    }
+
+    @Test
+    public void testRemoveById() {
+        Ingredient ingredient = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        ingredientService.add(ingredient);
+        Ingredient removedIngredient = ingredientService.remove(ingredient.getId());
+
+        assertNotNull(removedIngredient);
+        assertEquals(ingredient, removedIngredient);
+        assertNull(ingredientRepository.findById(ingredient.getId()).orElse(null));
+        ingredientService.clear();
+
+    }
+
+    @Test
+    public void testContains() {
+        Ingredient ingredient = new IngredientConfirmed("Salt", 0, MeasurementType.GRAM);
+        ingredientService.add(ingredient);
+        boolean contains = ingredientService.contains(ingredient);
+
+        assertTrue(contains);
+        ingredientService.clear();
 
     }
 

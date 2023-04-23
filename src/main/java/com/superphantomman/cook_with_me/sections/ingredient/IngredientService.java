@@ -4,13 +4,11 @@ package com.superphantomman.cook_with_me.sections.ingredient;
 import com.superphantomman.cook_with_me.exceptions.NotPersistedEntityException;
 import com.superphantomman.cook_with_me.sections.ingredient.pojos.Ingredient;
 import com.superphantomman.cook_with_me.util.AbstractDaoService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Slf4j
 @Service
 final public class IngredientService extends AbstractDaoService<Ingredient>  {
     public IngredientService(IngredientRepository repository) {
