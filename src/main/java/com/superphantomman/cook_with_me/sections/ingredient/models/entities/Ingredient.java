@@ -1,4 +1,4 @@
-package com.superphantomman.cook_with_me.sections.ingredient.pojos;
+package com.superphantomman.cook_with_me.sections.ingredient.models.entities;
 
 import com.superphantomman.cook_with_me.util.MeasurementType;
 import com.superphantomman.cook_with_me.util.State;

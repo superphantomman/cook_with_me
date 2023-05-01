@@ -68,7 +68,6 @@ public abstract class AbstractDaoService<T> implements DaoService<T> {
     }
 
     public void clear() {
-//        throw new UnsupportedOperationException();
         repository.deleteAll();
     }
 }

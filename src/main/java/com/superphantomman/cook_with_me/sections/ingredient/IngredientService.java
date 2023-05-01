@@ -2,7 +2,7 @@ package com.superphantomman.cook_with_me.sections.ingredient;
 
 
 import com.superphantomman.cook_with_me.exceptions.NotPersistedEntityException;
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.Ingredient;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
 import com.superphantomman.cook_with_me.util.AbstractDaoService;
 import org.springframework.stereotype.Service;
 

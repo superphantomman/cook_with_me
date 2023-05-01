@@ -1,7 +1,8 @@
-package com.superphantomman.cook_with_me.sections.ingredient.pojos;
+package com.superphantomman.cook_with_me.sections.ingredient.models.entities;
 
 
 
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
 import com.superphantomman.cook_with_me.util.MeasurementType;
 import com.superphantomman.cook_with_me.util.State;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import javax.persistence.Transient;
 @Table(name = "ingredient_confirmed")
 @Entity(name = "ingredient_confirmed")
 
-public class IngredientConfirmed extends Ingredient{
+public class IngredientConfirmed extends Ingredient {
     public IngredientConfirmed(String name, Integer calories, MeasurementType measurementType) {
         super(name, calories, measurementType);
     }

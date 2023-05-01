@@ -3,10 +3,11 @@ package com.superphantomman.cook_with_me.sections.recipe;
 
 import com.superphantomman.cook_with_me.exceptions.NotFoundEntityException;
 import com.superphantomman.cook_with_me.exceptions.NotPersistedEntityException;
-import com.superphantomman.cook_with_me.sections.recipe.pojos.Recipe;
-import com.superphantomman.cook_with_me.sections.recipe.pojos.RecipeInformation;
-import com.superphantomman.cook_with_me.sections.recipe.pojos.RecipeInformationPrivate;
-import com.superphantomman.cook_with_me.sections.recipe.pojos.RecipeInformationUnconfirmed;
+import com.superphantomman.cook_with_me.sections.recipe.models.entities.Recipe;
+import com.superphantomman.cook_with_me.sections.recipe.models.entities.RecipeInformation;
+import com.superphantomman.cook_with_me.sections.recipe.models.entities.RecipeInformationPrivate;
+import com.superphantomman.cook_with_me.sections.recipe.models.entities.RecipeInformationUnconfirmed;
+import com.superphantomman.cook_with_me.sections.recipe.services.RecipeDaoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,13 +22,13 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/recipes")
 public class RecipeController {
 
-    private final RecipeService recipeService;
+    private final RecipeDaoService recipeDaoService;
 
     @GetMapping
     public ModelAndView recipes() {
 
         final var mav = new ModelAndView("/recipe/recipes");
-        mav.addObject("recipes", recipeService.getAll() );
+        mav.addObject("recipes", recipeDaoService.getAll() );
         log.info("GET request received on path /recipes");
 
         return mav;
@@ -39,9 +40,9 @@ public class RecipeController {
 
         final var mav = new ModelAndView("/recipe/recipes");
         if(!search.equals(""))
-            mav.addObject("recipes", recipeService.getAll(search));
+            mav.addObject("recipes", recipeDaoService.getAll(search));
                 else
-            mav.addObject("recipes", recipeService.getAll());
+            mav.addObject("recipes", recipeDaoService.getAll());
 
         log.info("POST request received on path /recipes?search=" + search);
 
@@ -69,7 +70,7 @@ public class RecipeController {
             recipeInformation =  new RecipeInformationUnconfirmed(ri) ;
         }
 
-        if(!recipeService.add(r, recipeInformation )){
+        if(!recipeDaoService.add(r, recipeInformation )){
             throw new NotPersistedEntityException();
         }
 
@@ -83,7 +84,7 @@ public class RecipeController {
     public ModelAndView successRecipe( @RequestParam("recipe") Long recipeId ) {
 
         final var mav = new ModelAndView("/success/success");
-        mav.addObject("recipe", recipeService.get(recipeId));
+        mav.addObject("recipe", recipeDaoService.get(recipeId));
         log.info("POST request received on path recipes/create/success?recipeId=" + recipeId);
 
         return mav;
@@ -92,7 +93,7 @@ public class RecipeController {
     @GetMapping("/details/{id}")
     public ModelAndView detailsRecipe(@PathVariable("id") Long id) {
 
-        final Recipe recipe = recipeService.get(id);
+        final Recipe recipe = recipeDaoService.get(id);
         System.out.println(recipe);
 
         if( recipe == null) {
@@ -100,7 +101,7 @@ public class RecipeController {
         }
 
         final var mav = new ModelAndView("recipe/details");
-        mav.addObject("recipe", recipeService.get(id));
+        mav.addObject("recipe", recipeDaoService.get(id));
         log.info("POST request received on path /recipes/details/"+id);
 
         return mav;

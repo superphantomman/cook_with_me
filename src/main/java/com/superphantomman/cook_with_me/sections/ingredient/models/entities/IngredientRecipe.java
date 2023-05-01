@@ -1,7 +1,7 @@
-package com.superphantomman.cook_with_me.sections.ingredient.pojos;
+package com.superphantomman.cook_with_me.sections.ingredient.models.entities;
 
 
-import com.superphantomman.cook_with_me.sections.recipe.pojos.*;
+import com.superphantomman.cook_with_me.sections.recipe.models.entities.Recipe;
 import com.superphantomman.cook_with_me.util.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

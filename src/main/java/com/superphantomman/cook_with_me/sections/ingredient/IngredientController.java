@@ -1,7 +1,7 @@
 package com.superphantomman.cook_with_me.sections.ingredient;
 import com.superphantomman.cook_with_me.exceptions.NotFoundEntityException;
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.Ingredient;
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.IngredientUnconfirmed;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.IngredientUnconfirmed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

@@ -1,8 +1,8 @@
 package com.superphantomman.cook_with_me.sections.ingredient;
 
 
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.Ingredient;
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.IngredientConfirmed;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.IngredientConfirmed;
 import com.superphantomman.cook_with_me.util.DaoService;
 import com.superphantomman.cook_with_me.util.MeasurementType;
 import org.junit.jupiter.api.Test;

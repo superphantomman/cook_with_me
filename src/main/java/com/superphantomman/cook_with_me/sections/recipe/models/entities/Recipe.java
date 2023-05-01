@@ -1,9 +1,9 @@
-package com.superphantomman.cook_with_me.sections.recipe.pojos;
+package com.superphantomman.cook_with_me.sections.recipe.models.entities;
 
 
-import com.superphantomman.cook_with_me.sections.ingredient.pojos.*;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
+import com.superphantomman.cook_with_me.sections.ingredient.models.entities.IngredientRecipe;
 import com.superphantomman.cook_with_me.util.MeasurementType;
-import com.superphantomman.cook_with_me.util.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,16 +31,14 @@ public class Recipe {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, columnDefinition = "int")
+
     private Long id;
 
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    //Being in possession of recipeInformation
-    @OneToOne
-    @JoinColumn(name = "id", columnDefinition = "int")
-    @MapsId
-    private RecipeInformation recipeInformation;
 
 
     @ToString.Exclude
@@ -60,9 +58,6 @@ public class Recipe {
             throw new NullPointerException();
         if (weight.doubleValue() <= 0d)
             throw new IllegalArgumentException("Illegal argument for weigh parameter");
-
-        if (i.state() == State.UNCONFIRMED && recipeInformation.state() == State.CONFIRMED)
-            return false;
 
         return addIngredient(new IngredientRecipe(this, i, weight, mt));
     }
