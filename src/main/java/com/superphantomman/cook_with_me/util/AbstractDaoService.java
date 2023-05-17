@@ -30,6 +30,11 @@ public abstract class AbstractDaoService<T> implements DaoService<T> {
         return contains(e);
     }
 
+    @Override
+    public boolean add(Form<T> form) {
+        return add(form.toEntity());
+    }
+
     public boolean remove(T e) {
         repository.delete(e);
         return !contains(e);
@@ -59,7 +64,7 @@ public abstract class AbstractDaoService<T> implements DaoService<T> {
         return remove(result) ? result : null;
     }
 
-    public List<? extends T> getAll() {
+    public List<T> getAll() {
         return repository.findAll();
     }
 

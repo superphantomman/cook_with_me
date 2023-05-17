@@ -1,4 +1,4 @@
-package com.superphantomman.cook_with_me.sections.recipe;
+package com.superphantomman.cook_with_me.sections.recipe.services;
 
 import com.superphantomman.cook_with_me.sections.recipe.models.entities.Recipe;
 import com.superphantomman.cook_with_me.sections.recipe.models.entities.RecipeInformation;
@@ -7,8 +7,6 @@ import com.superphantomman.cook_with_me.sections.recipe.models.entities.RecipeIn
 import com.superphantomman.cook_with_me.sections.recipe.repositories.RecipeInformationPrivateRepository;
 import com.superphantomman.cook_with_me.sections.recipe.repositories.RecipeInformationRepository;
 import com.superphantomman.cook_with_me.sections.recipe.repositories.RecipeInformationUnconfirmedRepository;
-import com.superphantomman.cook_with_me.sections.recipe.services.RecipeInformationDaoService;
-import com.superphantomman.cook_with_me.sections.recipe.services.RecipeDaoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -21,7 +21,9 @@ public class IngredientConfirmed extends Ingredient {
     public IngredientConfirmed(String name, Integer calories, MeasurementType measurementType) {
         super(name, calories, measurementType);
     }
-
+    public IngredientConfirmed(Ingredient ingredient) {
+        super(ingredient);
+    }
     @Transient
     @Override
     public State state() {

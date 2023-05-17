@@ -17,7 +17,7 @@ import java.util.List;
 import static com.superphantomman.cook_with_me.util.State.*;
 
 @Service
-public final class RecipeInformationDaoService extends AbstractDaoService<RecipeInformation> {
+public class RecipeInformationDaoService extends AbstractDaoService<RecipeInformation> {
 
 
     private final EnumMap<State, JpaRepository<? extends RecipeInformation, Long>>
@@ -45,25 +45,25 @@ public final class RecipeInformationDaoService extends AbstractDaoService<Recipe
     }
 
     @Override
-    /*
-     * consider return type as id
-     * */
 
     public boolean add(RecipeInformation e) {
 
         if (contains(e)) return false;
 
-        return contains(
-                _add(
+        RecipeInformation savedInformation = _add(
                 switch (e.state()) {
                     case PRIVATE -> new RecipeInformationPrivate(e);
                     case UNCONFIRMED -> new RecipeInformationUnconfirmed(e);
                     case CONFIRMED -> new RecipeInformationConfirmed(e);
-                }));
+                });
+    e.setId(savedInformation.getId());
+
+        return contains( savedInformation
+                );
     }
 
     @Override
-    public List<? extends RecipeInformation> getAll(String search) {
+    public List<RecipeInformation> getAll(String search) {
         return getAll().stream()
                 .filter(ri -> ri.getName().contains(search)).toList();
     }

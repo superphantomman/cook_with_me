@@ -1,12 +1,13 @@
 package com.superphantomman.cook_with_me.sections.recipe.services;
-
-
 import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
 import com.superphantomman.cook_with_me.sections.ingredient.models.entities.IngredientRecipe;
 import com.superphantomman.cook_with_me.sections.recipe.models.entities.Recipe;
 import com.superphantomman.cook_with_me.sections.recipe.models.entities.RecipeInformation;
+import com.superphantomman.cook_with_me.sections.recipe.models.forms.RecipeForm;
+import com.superphantomman.cook_with_me.sections.recipe.models.forms.RecipeInformationForm;
 import com.superphantomman.cook_with_me.sections.recipe.repositories.RecipeRepository;
 import com.superphantomman.cook_with_me.util.AbstractDaoService;
+import com.superphantomman.cook_with_me.util.Form;
 import com.superphantomman.cook_with_me.util.MeasurementType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
 
 
 @Service
-public final class RecipeDaoService extends AbstractDaoService<Recipe> {
+public class RecipeDaoService extends AbstractDaoService<Recipe> {
 
 
     private final RecipeInformationDaoService informationService;
@@ -31,11 +32,14 @@ public final class RecipeDaoService extends AbstractDaoService<Recipe> {
     public boolean add(Recipe r, RecipeInformation ri) {
         ri.setRecipe(r);
         informationService.add(ri);
-        repository.save(r);
+        Recipe savedRecipe = repository.save(r);
+        r.setId(savedRecipe.getId());
         return contains(r);
     }
 
-
+    public boolean add(RecipeForm rf, RecipeInformationForm rif) {
+        return add(rf.toEntity(), rif.toEntity());
+    }
 
 
     public boolean addToRecipe(Long recipeId, Ingredient i, Float weight, MeasurementType mt) {
@@ -67,7 +71,7 @@ public final class RecipeDaoService extends AbstractDaoService<Recipe> {
     }
 
     @Override
-    public List<? extends Recipe> getAll(String search) {
+    public List<Recipe> getAll(String search) {
         return informationService.getAll(search).stream().map(RecipeInformation::getRecipe).toList();
     }
 
@@ -76,6 +80,11 @@ public final class RecipeDaoService extends AbstractDaoService<Recipe> {
      * */
     @Override
     public boolean add(Recipe e) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean add(Form<Recipe> form) {
         throw new UnsupportedOperationException();
     }
 

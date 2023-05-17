@@ -13,7 +13,9 @@ import javax.persistence.*;
 
 @ToString
 @NoArgsConstructor
-@Table(name = "ingredient_recipe")
+@Table(name = "ingredient_recipe", indexes = {
+        @Index(name = "idx_ingredientrecipe_weight", columnList = "weight")
+})
 @Entity
 public class IngredientRecipe {
 

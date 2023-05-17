@@ -18,7 +18,7 @@ public enum MeasurementType {
     ),
 
     LITER(
-            "MILLILITRE", 100,
+            "MILLILITRE", 1000,
             "LITRE", 1
     );
     final String lowerType;
@@ -26,28 +26,31 @@ public enum MeasurementType {
     final String upperType;
     final float upperVal;
 
+
     MeasurementType(
             final String lowerType, final int lowerVal,
             final String upperType, final int upperVal
-    ) {
+            ) {
         this.lowerType = lowerType;
         this.lowerVal = lowerVal;
         this.upperType = upperType;
         this.upperVal = upperVal;
     }
 
-    public MeasurementType convertToUpper(){
+    public MeasurementType convertToUpper() {
         return valueOf(upperType);
     }
-    public MeasurementType convertToLower(){
+
+    public MeasurementType convertToLower() {
         return valueOf(lowerType);
     }
 
-    public float convertValToUpper(float value){
+    public float convertValToUpper(float value) {
         return value * upperVal;
     }
-    public float convertValToLover(float value){
-        return  value / lowerVal;
+
+    public float convertValToLover(float value) {
+        return value / lowerVal;
     }
 
 }

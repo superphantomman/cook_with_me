@@ -27,7 +27,7 @@ import static javax.persistence.CascadeType.ALL;
 
 @Table(name = "recipe")
 @Entity
-public class Recipe {
+public final class Recipe {
 
 
     @Id
@@ -43,7 +43,7 @@ public class Recipe {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "id.recipe", cascade = ALL, orphanRemoval = true)
-    List<IngredientRecipe> ingredientRecipes = new ArrayList<>(7);
+    private List<IngredientRecipe> ingredientRecipes = new ArrayList<>(7);
 
     /*
     Allow user to get view on collection, but not to modify

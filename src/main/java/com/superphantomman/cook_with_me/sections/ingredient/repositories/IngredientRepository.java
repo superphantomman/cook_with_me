@@ -1,4 +1,4 @@
-package com.superphantomman.cook_with_me.sections.ingredient;
+package com.superphantomman.cook_with_me.sections.ingredient.repositories;
 
 import com.superphantomman.cook_with_me.sections.ingredient.models.entities.Ingredient;
 import org.springframework.data.jpa.repository.JpaRepository;
